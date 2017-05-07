@@ -79,7 +79,6 @@ ps_t *process_clone(ps_t *parent, uint32_t pid);
 void process_mark_as_user(ps_t *ps);
 void process_mark_as_kernel(ps_t *ps);
 
-//ITS FINE THIS WAY   YES?
 // Pause execution until the next IRQ and save power, reduce temps
 void halt();
 

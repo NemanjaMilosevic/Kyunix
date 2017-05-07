@@ -201,7 +201,6 @@ static int process_load_kernel_stack(ps_t *ps)
 
     return 0;
 }
-//fork exec?
 static int process_load_pdt(ps_t *ps)
 {
     pde_t *pdt;
