@@ -46,6 +46,7 @@ Core:
 * self healing features
 * real file system,ide driver
 * os installation on physical hdd
+
 Apps:
 * text editor.
 * process manager.
