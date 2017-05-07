@@ -5,7 +5,6 @@
 #include "sh.h"
 #include "fb.h"
 
-
 #define EXIT_FAILURE 1
 #define EXIT_SUCCESS 0
 #define LSH_RL_BUFSIZE 1024
@@ -25,6 +24,7 @@ int lsh_cd(char **args);
 int lsh_help(char **args);
 int lsh_clear(char **args);
 int lsh_exit(char **args);
+int lsh_echo(char **args);
 
 /*
   List of builtin commands, followed by their corresponding functions.
@@ -34,14 +34,16 @@ char *builtin_str[] = {
   "cd",
   "help",
   "exit",
-  "clear"
+  "clear",
+  "echo"
 };
 
 int (*builtin_func[]) (char **) = {
   &lsh_cd,
   &lsh_help,
   &lsh_exit,
-  &lsh_clear//,
+  &lsh_clear,
+  &lsh_echo//,
   //&lsh_exit
 };
 
@@ -67,6 +69,14 @@ printf("called cd");
   return 1;
 }
 int lsh_exit(char **args){UNUSED_ARGUMENT(args);return 0;}
+int lsh_echo(char **args){
+
+    for (char* c = *++args; c; c=*++args) {
+    printf("%s ",c);
+    }
+
+    return 0;
+}
 int lsh_clear(char **args){UNUSED_ARGUMENT(args);
  fb_clear();
 
