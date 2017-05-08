@@ -8,7 +8,7 @@
 #include "process.h"
 #include "keyboard.h"
 #include "stdio.h"
-#define NUM_SYSCALLS 9 //SOMETHING LIKE THAT?
+#define NUM_SYSCALLS 9 
 #define NEXT_STACK_ITEM(stack) ((uint32_t *) (stack) + 1)
 #define PEEK_STACK(stack, type) (*((type *) (stack)))
 
@@ -214,9 +214,8 @@ static int sys_yield(uint32_t syscall, void *stack)
 
     scheduler_schedule();
 
-    // usually, yield calls will return, when the process gets scheduled to run again
-// if not, where do they continue execution? does it somehow capture where the 
-// syscall came from and return straight there??? DONT THINK SO
+    //yield calls will return, when the process gets scheduled to run again
+
     /* we should not get here */
 
     return -1;
@@ -281,7 +280,7 @@ static syscall_handler_t handlers[NUM_SYSCALLS] = {
 /* 5 */ sys_yield,
 /* 6 */ sys_exit,
 /* 7 */ sys_wait,
-        sys_halt
+/* 8 */ sys_halt
     };
 
 static void update_user_mode_registers(ps_t *ps, cpu_state_t cs,

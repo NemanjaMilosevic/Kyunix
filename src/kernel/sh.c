@@ -5,6 +5,7 @@
 #include "sh.h"
 #include "fb.h"
 
+
 #define EXIT_FAILURE 1
 #define EXIT_SUCCESS 0
 #define LSH_RL_BUFSIZE 1024
@@ -16,14 +17,14 @@ int bufsize = LSH_RL_BUFSIZE;
 int position = 0;
 int c;
 
-
+extern void halt(void);
 /*
   Function Declarations for builtin shell commands:
  */
 int lsh_cd(char **args);
 int lsh_help(char **args);
 int lsh_clear(char **args);
-int lsh_exit(char **args);
+int lsh_shutdown(char **args);
 int lsh_echo(char **args);
 
 /*
@@ -33,7 +34,7 @@ int lsh_echo(char **args);
 char *builtin_str[] = {
   "cd",
   "help",
-  "exit",
+  "shutdown",
   "clear",
   "echo"
 };
@@ -41,10 +42,9 @@ char *builtin_str[] = {
 int (*builtin_func[]) (char **) = {
   &lsh_cd,
   &lsh_help,
-  &lsh_exit,
+  &lsh_shutdown,
   &lsh_clear,
-  &lsh_echo//,
-  //&lsh_exit
+  &lsh_echo
 };
 
 int lsh_num_builtins() {
@@ -68,7 +68,12 @@ printf("called cd");
   }*/
   return 1;
 }
-int lsh_exit(char **args){UNUSED_ARGUMENT(args);return 0;}
+int lsh_shutdown(char **args){
+    UNUSED_ARGUMENT(args);
+    printf("It is now safe to turn off your computer");
+    __asm__ __volatile__("hlt");
+    return 0;
+}
 int lsh_echo(char **args){
 
     for (char* c = *++args; c; c=*++args) {
