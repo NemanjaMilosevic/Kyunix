@@ -21,8 +21,10 @@
 
 #define FB_BACKSPACE_ASCII 8
 
-static uint8_t *fb = (uint8_t *) FB_MEMORY;
 static uint16_t cursor_pos;
+
+static uint8_t *fb = (uint8_t *) FB_MEMORY;
+
 static vnodeops_t vnodeops;
 
 static uint8_t read_cell(uint32_t row, uint32_t col)

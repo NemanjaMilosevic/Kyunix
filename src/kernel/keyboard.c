@@ -303,17 +303,19 @@ void resetBuf(){
 }
 
 void addChar(char c){
+  input_buffer[positionKB]=c;
+    positionKB++;
 
-    if(c=='\n'){ printf("\n");
+    lastC=c;
+
+    if(c=='\n'){ 
+    printf("\n");
 
     parse(input_buffer);
     resetBuf();
 
     }
-    input_buffer[positionKB]=c;
-    positionKB++;
-
-    lastC=c;
+  
 
 
 }
@@ -330,7 +332,8 @@ uint8_t kbd_read_scan_code(void)
 
    //if(ps!=NULL)wakeup(ps);
    
-   if(c!=-1){addChar(c);printf("%c",c);}
+   if(c!=-1){addChar(c);if(c!='\n')printf("%c",c);
+  }
    return inb(KBD_DATA_PORT);
 }
 

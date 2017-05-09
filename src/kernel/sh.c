@@ -57,7 +57,7 @@ int lsh_num_builtins() {
 int lsh_cd(char **args)
 {
 UNUSED_ARGUMENT(args);
-printf("called cd");
+printf("called cd\n");
 /*NOT IMPLEMENTED
   if (args[1] == NULL) {
     printf("lsh: expected argument to \"cd\"\n");
@@ -79,7 +79,7 @@ int lsh_echo(char **args){
     for (char* c = *++args; c; c=*++args) {
     printf("%s ",c);
     }
-
+    printf("\n");
     return 0;
 }
 int lsh_clear(char **args){UNUSED_ARGUMENT(args);
@@ -99,7 +99,7 @@ int lsh_help(char **args)
     printf("  %s\n", builtin_str[i]);
   }
 
-  printf("Use the man command for information on other programs.");
+  printf("Use the man command for information on other programs.\n");
   return 1;
 }
 
@@ -118,7 +118,7 @@ int lsh_execute(char **args)
       return (*builtin_func[i])(args);
     }
   }
-  printf("%s: command not found",args[0]);
+  printf("%s: command not found\n",args[0]);
   return lsh_launch(args);
 }
 
@@ -187,6 +187,7 @@ char **lsh_split_line(char *line)
 
 void prompt(){
 printf("kyunix>");
+cursor_pos=0;
 }
 int parse(char *buffer){
    int status;
@@ -196,7 +197,7 @@ int parse(char *buffer){
 
    status=lsh_execute(args);
 
-
+   prompt();
    return status;
 }
 int main(void)
